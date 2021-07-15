@@ -1,0 +1,23 @@
+body {
+    background: rgb(80, 82, 83);
+    font: normal 20px Lucida;
+    color: cornsilk;
+    width: 800px;
+    margin: 0 auto;
+}
+div#entrada, div#div_result {
+    margin-bottom: 20px;
+    font-family: 'Faster One', cursive;
+}
+section p {
+     margin: 5px 0;
+}
+header p {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+}
+h1 {
+    font-size: 4rem;
+    text-align: center;
+}
