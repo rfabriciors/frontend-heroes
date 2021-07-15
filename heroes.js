@@ -1,74 +1,58 @@
-//var url_api = document.querySelector('input#api_url');
-//var key_api = document.querySelector('input#api_key');
-//var btn_result = document.querySelector('input#btn_consult');
-var resultado = document.querySelector('div#div_result');
-var resultado2 = document.querySelector('div#div_result2');
+var header = document.querySelector('header');
 var section = document.querySelector('section');
 
-// btn_result.addEventListener('click',getResult);
-
+var requestURL = 'http://206.189.253.118:5000/api';
 var request = new XMLHttpRequest();
+request.open('GET', requestURL);
+request.responseType = 'json';
+request.send();
 
-function getResult() {  // Faz a requisição a API
-    var flask_url = 'http://206.189.253.118:5000/api';
-    console.log(flask_url);
-    // request.open('GET', 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json');
-    request.open('GET', flask_url);
-    request.responseType = 'json';
-    request.send();
+request.onload = function() {
+  var superHeroes = request.response;
+  populateHeader(superHeroes);
+  showHeroes(superHeroes);
 }
 
-request.onload = function () {
-    // Do something with the retrieved data ( found in xmlhttp.response )
-    
-    var respostaJSON = request.response;
-    populateHeader(respostaJSON);  // Preenche cabeçalho
-    populateHerois(respostaJSON);  // Preenche a relação de heróis
-};   
+function populateHeader(jsonObj) {
+  var myH1 = document.createElement('h1');
+  myH1.textContent = jsonObj['squadName'];
+  header.appendChild(myH1);
 
-function populateHeader(JsonObj){
+  var myPara = document.createElement('p');
+  myPara.textContent = 'Hometown: ' + jsonObj['homeTown'] + ' // Formed: ' + jsonObj['formed'];
+  header.appendChild(myPara);
 
-    var headerH1 = document.createElement('h1');
-    headerH1.textContent = JsonObj['squadName'];
-    resultado.appendChild(headerH1);
-
-    var myPara = document.createElement('p');
-    myPara.textContent = 'HomeTown: ' + JsonObj['homeTown'] +' // Formed: ' + JsonObj['formed'];
-
-    console.log(JsonObj['homeTown']);
-    resultado2.appendChild(myPara);
 }
 
-function populateHerois(JsonObj){
-    var heroes = JsonObj['members'];
-    for(var i=0;i<heroes.length;i++){
-        console.log(`Nome: ${heroes[i].name}, Idade: ${heroes[i].age}, Identidade Secreta: ${heroes[i].secretIdentity}`);
-        var myArticle = document.createElement('article');
-        var myH2 = document.createElement('h2');
-        var myPara1 = document.createElement('p');
-        var myPara2 = document.createElement('p');
-        var myPara3 = document.createElement('p');
-        var myList = document.createElement('ul');
+function showHeroes(jsonObj) {
+  var heroes = jsonObj['members'];
 
-        myH2.textContent = heroes[i].name;
-        myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
-        myPara2.textContent = 'Age: ' + heroes[i].age;
-        myPara3.textContent = 'Superpowers:';
+  for(i = 0; i < heroes.length; i++) {
+    var myArticle = document.createElement('article');
+    var myH2 = document.createElement('h2');
+    var myPara1 = document.createElement('p');
+    var myPara2 = document.createElement('p');
+    var myPara3 = document.createElement('p');
+    var myList = document.createElement('ul');
 
-        myArticle.appendChild(myH2);
-        myArticle.appendChild(myPara1);
-        myArticle.appendChild(myPara2);
-        myArticle.appendChild(myPara3);
-        myArticle.appendChild(myList);
+    myH2.textContent = heroes[i].name;
+    myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
+    myPara2.textContent = 'Age: ' + heroes[i].age;
+    myPara3.textContent = 'Superpowers:';
 
-        section.appendChild(myArticle);
-        
-        var power = heroes[i]['powers'];
-        for(var j=0;j<power.length;j++){
-            console.log(`\t${power[j]}`);
-            var listItem = document.createElement('li');
-            listItem.textContent = power[j];
-            myList.appendChild(listItem);
-        }
+    var superPowers = heroes[i].powers;
+    for(j = 0; j < superPowers.length; j++) {
+      var listItem = document.createElement('li');
+      listItem.textContent = superPowers[j];
+      myList.appendChild(listItem);
     }
+
+    myArticle.appendChild(myH2);
+    myArticle.appendChild(myPara1);
+    myArticle.appendChild(myPara2);
+    myArticle.appendChild(myPara3);
+    myArticle.appendChild(myList);
+
+    section.appendChild(myArticle);
+  }
 }
