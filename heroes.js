@@ -1,34 +1,26 @@
-var url_api = document.querySelector('input#api_url');
-var key_api = document.querySelector('input#api_key');
-var btn_result = document.querySelector('input#btn_consult');
+//var url_api = document.querySelector('input#api_url');
+//var key_api = document.querySelector('input#api_key');
+//var btn_result = document.querySelector('input#btn_consult');
 var resultado = document.querySelector('div#div_result');
 var resultado2 = document.querySelector('div#div_result2');
 var section = document.querySelector('section');
 
-// var flask_api_host = 'flaskapihost';
-var flask_api_host = 'flask-service';
-var flask_url =  'http://' + flask_api_host + ':5000/api';
+// btn_result.addEventListener('click',getResult);
 
-btn_result.addEventListener('click',getResult);
-/*
-    var requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-*/
 var request = new XMLHttpRequest();
 
 function getResult() {  // Faz a requisição a API
+    var flask_url = 'http://206.189.253.118:5000/api';
+    console.log(flask_url);
     // request.open('GET', 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json');
     request.open('GET', flask_url);
-    console.log(flask_url);
     request.responseType = 'json';
     request.send();
 }
 
 request.onload = function () {
     // Do something with the retrieved data ( found in xmlhttp.response )
+    
     var respostaJSON = request.response;
     populateHeader(respostaJSON);  // Preenche cabeçalho
     populateHerois(respostaJSON);  // Preenche a relação de heróis
