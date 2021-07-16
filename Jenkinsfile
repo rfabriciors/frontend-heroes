@@ -7,7 +7,7 @@ pipeline{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
-                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
+                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: '${BRANCH}'
                 echo "${env.GIT_BRANCH}"
                 echo "Branch trabalhada: ${BRANCH}"
             }
