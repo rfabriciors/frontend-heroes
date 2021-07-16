@@ -8,6 +8,8 @@ pipeline{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
+                echo '${params.BRANCH}'
+                echo 'Mostrei acima'
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: '${params.BRANCH}'
             }
         }
