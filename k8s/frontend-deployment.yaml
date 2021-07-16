@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: rfabricio/frontend-heroes:v$BUILD_NUMBER-${env.GIT_BRANCH#*/}
+        image: rfabricio/frontend-heroes:v$BUILD_NUMBER-$GIT_LOCAL_BRANCH
         resources:
           limits:
             memory: "64Mi"
