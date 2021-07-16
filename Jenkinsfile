@@ -6,7 +6,7 @@ pipeline{
                 echo "Obtendo a versão mais recente do projeto"
                 echo 'Mostrei acima'
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
-                echo '${env.GIT_BRANCH}'
+                echo ${env.GIT_BRANCH}
                 echo '${env.BRANCH}'
                 echo '${env.BRANCH_NAME}'
                 echo '${env.GIT_BRANCH_NAME}'
