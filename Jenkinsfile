@@ -1,23 +1,19 @@
 pipeline{
     agent any
-    parameters {
-        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'dev', name: 'BRANCH', type: 'PT_BRANCH'
-    }
-
     stages{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
-                echo '${params.BRANCH}'
+                echo '${env.GIT_BRANCH}'
                 echo 'Mostrei acima'
-                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: '${params.BRANCH}'
+                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: '${env.GIT_BRANCH}'
             }
         }
         stage("Build Container Image"){
             steps{
                 echo "Construindo a imagem Docker"
                 script {
-                    dockerapp = docker.build("rfabricio/frontend-heroes:v${env.BUILD_NUMBER}-${params.BRANCH}",
+                    dockerapp = docker.build("rfabricio/frontend-heroes:v${env.BUILD_NUMBER}-${env.GIT_BRANCH}",
                     '-f ./Dockerfile .')
                 }
             }
@@ -28,7 +24,7 @@ pipeline{
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                     dockerapp.push("latest")
-                    dockerapp.push("v${env.BUILD_NUMBER}-${params.BRANCH}")
+                    dockerapp.push("v${env.BUILD_NUMBER}-${env.GIT_BRANCH}")
                     }
                 }
             }
