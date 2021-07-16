@@ -6,8 +6,9 @@ pipeline{
             steps{
                 echo "Obtendo a versão mais recente do projeto"
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
-                
-                def BRANCH = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+
+                BRANCH = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                echo $BRANCH
             }
         }
         stage("Build Container Image"){
