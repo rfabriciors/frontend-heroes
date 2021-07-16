@@ -5,7 +5,7 @@ html {
   }
   
   body {
-    background:rgb(253, 255, 230);
+    background:hsl(65, 100%, 55%);
     width: 800px;
     margin: 0 auto;
   }
