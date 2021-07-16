@@ -1,7 +1,7 @@
 pipeline{
     agent any
     parameters {
-        text branchFilter: 'origin/(.*)', defaultValue: 'dev', name: 'BRANCH', type: 'PT_BRANCH'
+        text defaultValue: 'dev', name: 'BRANCH'
     }
 
     stages{
