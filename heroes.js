@@ -1,7 +1,7 @@
 var header = document.querySelector('header');
 var section = document.querySelector('section');
 
-var requestURL = 'http://161.35.253.175:5000/api';
+var requestURL = 'http://165.227.252.139:5000/api';
 var request = new XMLHttpRequest();
 request.open('GET', requestURL);
 request.responseType = 'json';
