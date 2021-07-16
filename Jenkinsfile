@@ -4,9 +4,12 @@ pipeline{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
-                echo '${env.GIT_BRANCH}'
                 echo 'Mostrei acima'
-                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: '${env.GIT_BRANCH}'
+                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
+                echo '${env.GIT_BRANCH}'
+                echo '${env.BRANCH}'
+                echo '${env.BRANCH_NAME}'
+                echo '${env.GIT_BRANCH_NAME}'
             }
         }
         stage("Build Container Image"){
