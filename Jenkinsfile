@@ -36,7 +36,7 @@ pipeline{
             }
             steps{
                 echo "Fazendo o deploy da aplicação no cluster Kubernetes"
-                kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')
+                kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig', enableConfigSubstitution: true)
             }
         }  
     }
