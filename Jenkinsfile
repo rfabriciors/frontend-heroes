@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment {
-        BRANCH = 'dev'
+        BRANCH = 'main'
     }
     stages{
         stage("Git pull"){
