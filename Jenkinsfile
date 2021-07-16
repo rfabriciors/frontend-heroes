@@ -5,10 +5,10 @@ pipeline{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
-                script {
+                environment {
                     BRANCH = 'dev'
-                    echo $BRANCH
                 }
+                echo $BRANCH
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
             }
         }
