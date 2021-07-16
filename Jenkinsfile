@@ -22,11 +22,22 @@ pipeline{
                 echo "Executando o push das imagens para o Docker Hub"
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerapp.push("latest")
-                        dockerapp.push("v${env.BUILD_NUMBER}-dev")
+                    dockerapp.push("latest")
+                    dockerapp.push("v${env.BUILD_NUMBER}-dev")
                     }
                 }
             }
-        }       
+        }
+        stage("Deploy to Kubernetes Cluster"){
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                }
+            }
+            steps{
+                echo "Fazendo o deploy da aplicação no cluster Kubernetes"
+                kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')
+            }
+        }  
     }
 }
