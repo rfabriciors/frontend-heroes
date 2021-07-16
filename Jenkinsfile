@@ -4,12 +4,10 @@ pipeline{
     stages{
         stage("Git pull"){
             steps{
+                def BRANCH = 'dev'
+                echo ${BRANCH}
                 echo "Obtendo a versão mais recente do projeto"
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
-                script {
-                        def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                        echo ${BRANCH}
-                }
             }
         }
         stage("Build Container Image"){
