@@ -6,13 +6,17 @@ pipeline{
             steps{
                 echo "Obtendo a versão mais recente do projeto"
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
+                script {
+                        def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                        echo ${BRANCH}
+                }
             }
         }
         stage("Build Container Image"){
             steps{
                 echo "Construindo a imagem Docker"
                 script {
-                    dockerapp = docker.build("rfabricio/frontend-heroes:v${env.BUILD_NUMBER}-${env.GIT_LOCAL_BRANCH}",
+                    dockerapp = docker.build("rfabricio/frontend-heroes:v${env.BUILD_NUMBER}-${BRANCH}",
                     '-f ./Dockerfile .')
                 }
             }
@@ -23,7 +27,7 @@ pipeline{
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                     dockerapp.push("latest")
-                    dockerapp.push("v${env.BUILD_NUMBER}-${env.GIT_LOCAL_BRANCH}")
+                    dockerapp.push("v${env.BUILD_NUMBER}-${BRANCH}")
                     }
                 }
             }
