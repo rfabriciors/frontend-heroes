@@ -1,14 +1,14 @@
 pipeline{
     agent any
     parameters {
-        text defaultValue: 'dev', name: 'BRANCH'
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'dev', name: 'BRANCH', type: 'PT_BRANCH'
     }
 
     stages{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
-                echo $BRANCH
+                echo '${params.BRANCH}'
                 echo 'Mostrei acima'
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: '${params.BRANCH}'
             }
