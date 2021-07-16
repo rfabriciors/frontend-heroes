@@ -12,7 +12,7 @@ pipeline{
             steps{
                 echo "Construindo a imagem Docker"
                 script {
-                    dockerapp = docker.build("rfabricio/frontend-heroes:v${env.BUILD_NUMBER}-${env.BRANCH_NAME}",
+                    dockerapp = docker.build("rfabricio/frontend-heroes:v${env.BUILD_NUMBER}-${env.GIT_BRANCH}",
                     '-f ./Dockerfile .')
                 }
             }
@@ -23,7 +23,7 @@ pipeline{
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                     dockerapp.push("latest")
-                    dockerapp.push("v${env.BUILD_NUMBER}-${env.BRANCH_NAME}")
+                    dockerapp.push("v${env.BUILD_NUMBER}-${env.GIT_BRANCH}")
                     }
                 }
             }
