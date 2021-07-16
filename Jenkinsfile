@@ -5,11 +5,11 @@ pipeline{
         stage("Git pull"){
             steps{
                 echo "Obtendo a versão mais recente do projeto"
-                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
                 script {
-                    BRANCH = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    BRANCH = 'dev'
                     echo $BRANCH
                 }
+                git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
             }
         }
         stage("Build Container Image"){
