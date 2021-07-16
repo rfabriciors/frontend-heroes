@@ -8,7 +8,7 @@ pipeline{
             steps{
                 echo "Obtendo a versão mais recente do projeto"
                 git url: 'https://github.com/rfabriciors/frontend-heroes.git', branch: 'dev'
-                echo ${env.GIT_BRANCH}
+                echo "${env.GIT_BRANCH}"
                 echo "Branch trabalhada: ${BRANCH}"
             }
         }
